@@ -20,6 +20,7 @@ class HangpersonGame
     raise ArgumentError if ( letter.nil? || letter.empty? || letter =~ /[^a-zA-Z]+/ )
 
     letter = letter.downcase
+
     return false if (@guesses.include?(letter) || @wrong_guesses.include?(letter))
 
     if @word.include? letter
@@ -28,6 +29,14 @@ class HangpersonGame
       @wrong_guesses << letter
     end
 
+  end
+
+  def word_with_guesses
+    if @guesses.empty?
+      @word.gsub(/./, "-")
+    else
+      @word.gsub(/[^#{@guesses}]/, "-")
+    end
   end
 
 
