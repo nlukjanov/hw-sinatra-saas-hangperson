@@ -2,15 +2,31 @@ class HangpersonGame
 
   # add the necessary class methods, attributes, etc. here
   # to make the tests in spec/hangperson_game_spec.rb pass.
+  attr_accessor :word, :guesses, :wrong_guesses
 
   # Get a word from remote "random word" service
 
   # def initialize()
   # end
-  
+
   def initialize(word)
     @word = word
+    @guesses = ''
+    @wrong_guesses = ''
   end
+
+  def guess(letter)
+    letter = letter.downcase
+
+    return false if (@guesses.include?(letter) || @wrong_guesses.include?(letter))
+
+    if @word.include? letter
+      @guesses << letter
+    else
+      @wrong_guesses << letter
+    end
+  end
+
 
   # You can test it by running $ bundle exec irb -I. -r app.rb
   # And then in the irb: irb(main):001:0> HangpersonGame.get_random_word
